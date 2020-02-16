@@ -1,0 +1,29 @@
+{
+  "name": "jaya-nodejs",
+  "version": "1.0.0",
+  "description": "Simple authentication server, Sort a list of arrays in different ways according with the user preference.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "authentication",
+    "JWT",
+    "array",
+    "API"
+  ],
+  "author": "Sebastian Higuita Castañeda",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.1",
+    "morgan": "^1.9.1",
+    "winston": "^3.2.1"
+  }
+}
