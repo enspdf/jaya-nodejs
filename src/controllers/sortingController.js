@@ -1,16 +1,28 @@
-const { readFileContent } = require("../utils/fileUtil");
+const { readFileContent, writeFileContent } = require("../utils/fileUtil");
 const { sortArray } = require("../service/sortingService");
-const { ASCENDING_ORDER, DESCENDING_ORDER } = require("../utils/constants");
+const {
+  ASCENDING_ORDER,
+  DESCENDING_ORDER,
+  MIXED_ORDER
+} = require("../utils/constants");
+const os = require("os");
 
 async function ascending(req, res, next) {
   let ascendingArray = [];
+  writeFileContent(`${ASCENDING_ORDER}${os.EOL}`);
 
   await readFileContent().then(data => {
     const splittedArrays = data.split("\n");
+
     for (let i = 0; i < splittedArrays.length; i++) {
-      ascendingArray.push(
-        sortArray(splittedArrays[i].split(","), ASCENDING_ORDER)
+      let currentSortedArray = sortArray(
+        splittedArrays[i].split(","),
+        ASCENDING_ORDER
       );
+
+      writeFileContent(currentSortedArray);
+
+      ascendingArray.push(currentSortedArray);
     }
 
     return res.status(200).json({
@@ -22,13 +34,20 @@ async function ascending(req, res, next) {
 
 async function descending(req, res, next) {
   let descendingArray = [];
+  writeFileContent(`${DESCENDING_ORDER}${os.EOL}`);
 
   await readFileContent().then(data => {
     const splittedArrays = data.split("\n");
+
     for (let i = 0; i < splittedArrays.length; i++) {
-      descendingArray.push(
-        sortArray(splittedArrays[i].split(","), DESCENDING_ORDER)
+      let currentSortedArray = sortArray(
+        splittedArrays[i].split(","),
+        DESCENDING_ORDER
       );
+
+      writeFileContent(currentSortedArray);
+
+      descendingArray.push(currentSortedArray);
     }
 
     return res.status(200).json({
@@ -40,22 +59,34 @@ async function descending(req, res, next) {
 
 async function mixed(req, res, next) {
   let mixedArray = [];
+  writeFileContent(`${MIXED_ORDER}${os.EOL}`);
 
   await readFileContent().then(data => {
     const splittedArrays = data.split("\n");
     let isAscendingOrder = true;
+
     for (let i = 0; i < splittedArrays.length; i++) {
+      let currentSortedArray = [];
+
       if (isAscendingOrder) {
-        mixedArray.push(
-          sortArray(splittedArrays[i].split(","), ASCENDING_ORDER)
+        currentSortedArray = sortArray(
+          splittedArrays[i].split(","),
+          ASCENDING_ORDER
         );
+
         isAscendingOrder = false;
       } else {
-        mixedArray.push(
-          sortArray(splittedArrays[i].split(","), DESCENDING_ORDER)
+        currentSortedArray = sortArray(
+          splittedArrays[i].split(","),
+          DESCENDING_ORDER
         );
+
         isAscendingOrder = true;
       }
+
+      writeFileContent(currentSortedArray);
+
+      mixedArray.push(currentSortedArray);
     }
 
     return res.status(200).json({

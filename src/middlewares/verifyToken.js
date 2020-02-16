@@ -1,5 +1,5 @@
 const { verify } = require("jsonwebtoken");
-const config = require("./config");
+const config = require("../utils/config");
 
 function verifyToken(req, res, next) {
   let token = req.headers["x-access-token"] || req.headers["authorization"];

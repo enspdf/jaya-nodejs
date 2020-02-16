@@ -1,6 +1,5 @@
-const { readFile, writeFile, appendFile } = require("fs");
-const path = require("path");
-const filePath = path.join(__dirname, "/assets");
+const { readFile, write, open, close } = require("fs");
+const os = require("os");
 
 function readFileContent() {
   return new Promise((resolve, reject) => {
@@ -17,21 +16,28 @@ function readFileContent() {
       }
     );
   });
-  /*  readFile(
-    `${process.env.PWD}/public/assets/original.txt`,
-    { encoding: "utf-8" },
-    async (error, fileContent) => {
-      if (!error) {
-        console.log(fileContent);
-        return fileContent;
-      } else {
+}
+
+function writeFileContent(contentToWrite = "") {
+  open(`${process.env.PWD}/public/assets/sorted.txt`, "a", 666, (error, id) => {
+    if (error) {
+      console.log(error);
+    } else {
+      write(id, `${contentToWrite}${os.EOL}`, null, "utf-8", () => {
+        close(id, () => {});
+      });
+    }
+  });
+  /*appendFile(
+    `${process.env.PWD}/public/assets/sorted.txt`,
+    `${contentToWrite}${os.EOL}`,
+    error => {
+      if (error) {
         console.log(error);
       }
     }
   );*/
 }
-
-function writeFileContent() {}
 
 module.exports = {
   readFileContent,

@@ -4,7 +4,7 @@ const {
   descending,
   mixed
 } = require("../controllers/sortingController");
-const verifyToken = require("../utils/verifyToken");
+const verifyToken = require("../middlewares/verifyToken");
 const router = Router();
 
 router.use(verifyToken);
