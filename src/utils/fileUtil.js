@@ -28,15 +28,6 @@ function writeFileContent(contentToWrite = "") {
       });
     }
   });
-  /*appendFile(
-    `${process.env.PWD}/public/assets/sorted.txt`,
-    `${contentToWrite}${os.EOL}`,
-    error => {
-      if (error) {
-        console.log(error);
-      }
-    }
-  );*/
 }
 
 module.exports = {
