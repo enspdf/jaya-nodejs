@@ -1,13 +1,14 @@
 const path = require("path");
 const express = require("express");
-const morgan = require("morgan");
+const httpLogger = require("./middlewares/httpLogger");
 const userRoute = require("./routes/userRoute");
 const sortingRoute = require("./routes/sortingRoute");
 
 const app = express();
 
+app.use(httpLogger);
+
 app.set("port", process.env.PORT || 3000);
-app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
